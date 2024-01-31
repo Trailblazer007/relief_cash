@@ -14,3 +14,11 @@ input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
   box-shadow: inset 0 0 20px 20px transparent;
 }
+
+.pincode-input-container {
+  @apply flex justify-between px-0 mt-2.5;
+}
+
+.pincode-input-text {
+  @apply rounded-md !border-[1.5px] !border-slate-200 dark:!border-neutral-800 !text-black dark:!text-white !h-12 !w-12;
+}
