@@ -1,6 +1,12 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { AuthLayout } from "@/features/auth";
+import CustomInput from "@/components/custom-input";
+import { useState } from "react";
+import { PasswordEye } from "@/components/password-eye";
+import { Button } from "@/components/ui/button";
+import { MoonLoader } from "react-spinners";
+import Link from "next/link";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is Required"),
@@ -16,6 +22,7 @@ const LoginSchema = Yup.object().shape({
 });
 
 export default function Signin() {
+  const [isVisible, setIsVisible] = useState(false);
   const {
     handleSubmit,
     handleChange,
@@ -48,9 +55,70 @@ export default function Signin() {
   });
   return (
     <AuthLayout>
-      <h1 className="text-5xl font-bold">
-        Whereas recognition of the inherent dignity
-      </h1>
+      <form
+        onSubmit={handleSubmit}
+        className="w-[85%] lg:w-[70%] space-y-5 flex flex-col mt-12"
+      >
+        <CustomInput
+          label="Email Address"
+          name="email"
+          type="email"
+          autoComplete="email"
+          required
+          value={values.email}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={
+            errors.email && values.email.length > 0 ? errors.email : undefined
+          }
+        />
+        <CustomInput
+          label="Password"
+          name="password"
+          type={isVisible ? "text" : "password"}
+          required
+          value={values.password}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={
+            errors.password && values.password.length > 0
+              ? errors.password
+              : undefined
+          }
+          labelRight={
+            <div className="text-sm">
+              <Link
+                href="/auth/reset-password"
+                className="font-semibold text-blue-500 hover:text-apple-400"
+              >
+                Forgot password?
+              </Link>
+            </div>
+          }
+          endIcon={
+            <PasswordEye
+              isVisible={isVisible}
+              onClick={() => setIsVisible(!isVisible)}
+            />
+          }
+        />
+
+        <div>
+          <Button
+            disabled={!isValid || isSubmitting}
+            type="submit"
+            className="w-full mt-5"
+          >
+            Sign in
+            <MoonLoader
+              size={20}
+              color="white"
+              className="ml-2 text-white"
+              loading={isSubmitting}
+            />
+          </Button>
+        </div>
+      </form>
     </AuthLayout>
   );
 }

@@ -38,7 +38,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
           ? "border-red-500"
           : focus && !readOnly
           ? "border-primary"
-          : "  border-slate-100 dark:border-neutral-800"
+          : "  border-slate-200 dark:border-neutral-800"
       )}
     >
       {startIcon && (
