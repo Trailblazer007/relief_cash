@@ -2,32 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.holder {
+  background-image: linear-gradient(to bottom left, purple, rgb(66, 56, 56))
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.email {
+  padding: 10px;
+  margin:10px 0;
+  border: 0;
+  border: 2px solid #eee;
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+  border-radius:10px;
+  width:100%;
+  outline: none;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+.password {
+  padding: 10px;
+  margin:10px 0;
+  border: 0;
+  border: 2px solid #eee;
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+  border-radius:10px;
+  width:100%;
+  outline: none;
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
 }
