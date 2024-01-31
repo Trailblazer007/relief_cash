@@ -30,7 +30,7 @@ export const AuthLayout = ({ children }: PropsWithChildren<Props>) => {
             <div
               key={index}
               onClick={() => router.push(href)}
-              className="flex flex-col items-center hover:scale-105 active:scale-95 transition-all duration-300"
+              className="flex flex-col items-center hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
             >
               <p
                 className={cn(

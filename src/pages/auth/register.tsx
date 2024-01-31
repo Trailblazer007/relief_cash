@@ -6,7 +6,6 @@ import { useState } from "react";
 import { PasswordEye } from "@/components/password-eye";
 import { Button } from "@/components/ui/button";
 import { MoonLoader } from "react-spinners";
-import Link from "next/link";
 
 const Schema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is Required"),
@@ -23,7 +22,7 @@ const Schema = Yup.object().shape({
 
 type SchemaType = Yup.InferType<typeof Schema>;
 
-export default function Signin() {
+export default function Register() {
   const [isVisible, setIsVisible] = useState(false);
   const {
     handleSubmit,
@@ -42,19 +41,9 @@ export default function Signin() {
     validateOnChange: true,
     validateOnBlur: true,
     validateOnMount: true,
-    onSubmit: async (values) => {
-      // await signIn("credentials", { redirect: false, ...values }).then(
-      //   ({ ok, error }: any) => {
-      //     if (ok) {
-      //       toast.success("Successfully logged in");
-      //       router.replace(callbackUrl ?? "/dashboard");
-      //     } else {
-      //       toast.error(error ?? "Uh oh! Something went wrong.");
-      //     }
-      //   }
-      // );
-    },
+    onSubmit: async (values) => {},
   });
+
   return (
     <AuthLayout>
       <form
@@ -87,16 +76,6 @@ export default function Signin() {
               ? errors.password
               : undefined
           }
-          labelRight={
-            <div className="text-sm">
-              <Link
-                href="/auth/reset-password"
-                className="font-semibold text-blue-500 hover:text-apple-400"
-              >
-                Forgot password?
-              </Link>
-            </div>
-          }
           endIcon={
             <PasswordEye
               isVisible={isVisible}
@@ -111,7 +90,7 @@ export default function Signin() {
             type="submit"
             className="w-full mt-5"
           >
-            Log in
+            Create an Account
             <MoonLoader
               size={20}
               color="white"
