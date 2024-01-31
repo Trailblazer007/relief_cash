@@ -12,13 +12,8 @@ const poppins = Ubuntu({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <style jsx global>{`
-        html {
-          font-family: ${poppins.style.fontFamily};
-        }
-      `}</style>
+    <main className={cn(poppins.className, "mx-auto w-full max-w-7xl")}>
       <Component {...pageProps} />
-    </>
+    </main>
   );
 }
