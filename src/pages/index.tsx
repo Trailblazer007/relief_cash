@@ -1,14 +1,15 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
-
 export default function Home() {
   return (
-    <main className="holder min-h-screen bg-purple-200" >
-      {/* login modal */}
-      <div className="flex m-auto  w-96 p-4 ">
+    <main className="">
+      <h1 className="text-5xl font-bold">Whereas recognition of the inherent dignity</h1>
+    </main>
+  );
+}
+
+{
+  /*
+
+<div className="flex m-auto  w-96 p-4 ">
         <div className="mt-52 shadow-2xl rounded-xl p-6 bg-white ">
           <div className="my-4">
             <p>Login with</p>
@@ -36,6 +37,5 @@ export default function Home() {
         </div>
       </div>
       
-    </main>
-  );
+*/
 }
