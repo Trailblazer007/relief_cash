@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { PropsWithChildren } from "react";
 
 type Props = {};
-export const AuthLayout = (props: PropsWithChildren<Props>) => {
+export const AuthLayout = ({ children }: PropsWithChildren<Props>) => {
   const router = useRouter();
   return (
     <main className="flex h-screen">
@@ -27,7 +27,11 @@ export const AuthLayout = (props: PropsWithChildren<Props>) => {
 
         <div className="flex space-x-10 mt-2">
           {tabs.map(({ href, name }, index) => (
-            <div key={index} className="flex flex-col items-center">
+            <div
+              key={index}
+              onClick={() => router.push(href)}
+              className="flex flex-col items-center hover:scale-105 active:scale-95 transition-all duration-300"
+            >
               <p
                 className={cn(
                   "text-lg font-semibold",
@@ -50,6 +54,8 @@ export const AuthLayout = (props: PropsWithChildren<Props>) => {
             </div>
           ))}
         </div>
+
+        {children}
       </div>
 
       <div className="w-[50%] hidden lg:grid 2xl:hidden place-items-center h-full relative">
