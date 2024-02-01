@@ -7,7 +7,7 @@ type Props = {};
 export const AuthLayout = ({ children }: PropsWithChildren<Props>) => {
   const router = useRouter();
   return (
-    <main className="flex h-screen">
+    <main className="flex h-screen relative lg:">
       <div className="w-full lg:w-[50%] 2xl:mx-auto h-full bg-white pt-10 flex flex-col items-center">
         {/* logo */}
         <div className="flex items-center cursor-pointer p-5">

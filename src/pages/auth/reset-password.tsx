@@ -3,6 +3,7 @@ import { PasswordEye } from "@/components/password-eye";
 import { Button } from "@/components/ui/button";
 import { AuthLayout } from "@/features/auth";
 import { useFormik } from "formik";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import PinInput from "react-pin-input";
@@ -80,100 +81,107 @@ export default function ResetPassword() {
     //   .finally(() => setIsCodeLoading(false));
   };
   return (
-    <AuthLayout>
-      <form
-        onSubmit={handleSubmit}
-        className="w-[85%] lg:w-[70%] space-y-5 flex flex-col mt-12"
-      >
-        <div className="flex gap-3">
+    <>
+      <Head>
+        <title>Reset Password | Auth</title>
+      </Head>
+      <AuthLayout>
+        <form
+          onSubmit={handleSubmit}
+          className="w-[85%] lg:w-[70%] space-y-5 flex flex-col mt-12"
+        >
+          <div className="flex gap-3">
+            <CustomInput
+              label="Email address"
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              readOnly={isSubmitting}
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className="w-full"
+              classes={{ inputRoot: "w-full", input: "w-full", root: "w-full" }}
+              error={
+                errors.email && values.email.length > 0
+                  ? errors.email
+                  : undefined
+              }
+            />
+
+            {!codeSent && (
+              <Button
+                type="button"
+                disabled={!values.email.match(mailformat)}
+                className="mt-8 shrink-0 rounded-md h-10"
+                onClick={sendCode}
+              >
+                {isCodeLoading ? (
+                  <MoonLoader size={15} color="#ffffff" className="mr-2" />
+                ) : null}
+                Send code
+              </Button>
+            )}
+          </div>
+
+          <div className="">
+            <label className="block text-base font-semibold leading-6 text-black dark:text-white">
+              Reset password code
+            </label>
+            <PinInput
+              length={6}
+              initialValue=""
+              secret
+              secretDelay={100}
+              disabled={!codeSent}
+              onChange={(value) => setFieldValue("token", value)}
+              type="numeric"
+              inputMode="number"
+              onComplete={(value, index) => {}}
+              regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+            />
+          </div>
+
           <CustomInput
-            label="Email address"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            readOnly={isSubmitting}
-            value={values.email}
+            label="New Password"
+            name="password"
+            type={isVisible ? "text" : "password"}
+            readOnly={isSubmitting || !codeSent}
+            value={values.password}
             onChange={handleChange}
             onBlur={handleBlur}
-            className="w-full"
-            classes={{ inputRoot: "w-full", input: "w-full", root: "w-full" }}
             error={
-              errors.email && values.email.length > 0 ? errors.email : undefined
+              errors.password && values.password.length > 0
+                ? errors.password
+                : undefined
+            }
+            required
+            endIcon={
+              <PasswordEye
+                isVisible={isVisible}
+                onClick={() => setIsVisible(!isVisible)}
+              />
             }
           />
 
-          {!codeSent && (
+          <div>
             <Button
-              type="button"
-              disabled={!values.email.match(mailformat)}
-              className="mt-8 shrink-0 rounded-md h-10"
-              onClick={sendCode}
+              disabled={!isValid || isSubmitting}
+              type="submit"
+              className="w-full mt-5"
             >
-              {isCodeLoading ? (
-                <MoonLoader size={15} color="#ffffff" className="mr-2" />
-              ) : null}
-              Send code
+              Submit
+              <MoonLoader
+                size={20}
+                color="white"
+                className="ml-2 text-white"
+                loading={isSubmitting}
+              />
             </Button>
-          )}
-        </div>
-
-        <div className="">
-          <label className="block text-base font-semibold leading-6 text-black dark:text-white">
-            Reset password code
-          </label>
-          <PinInput
-            length={6}
-            initialValue=""
-            secret
-            secretDelay={100}
-            disabled={!codeSent}
-            onChange={(value) => setFieldValue("token", value)}
-            type="numeric"
-            inputMode="number"
-            onComplete={(value, index) => {}}
-            regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
-          />
-        </div>
-
-        <CustomInput
-          label="New Password"
-          name="password"
-          type={isVisible ? "text" : "password"}
-          readOnly={isSubmitting || !codeSent}
-          value={values.password}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          error={
-            errors.password && values.password.length > 0
-              ? errors.password
-              : undefined
-          }
-          required
-          endIcon={
-            <PasswordEye
-              isVisible={isVisible}
-              onClick={() => setIsVisible(!isVisible)}
-            />
-          }
-        />
-
-        <div>
-          <Button
-            disabled={!isValid || isSubmitting}
-            type="submit"
-            className="w-full mt-5"
-          >
-            Submit
-            <MoonLoader
-              size={20}
-              color="white"
-              className="ml-2 text-white"
-              loading={isSubmitting}
-            />
-          </Button>
-        </div>
-      </form>
-    </AuthLayout>
+          </div>
+        </form>
+      </AuthLayout>
+    </>
   );
 }
