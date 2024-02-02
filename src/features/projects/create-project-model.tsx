@@ -20,6 +20,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { createProject } from "@/services/create-projects";
+import { useRouter } from "next/router";
+import { toast } from "sonner";
+import { MoonLoader } from "react-spinners";
+import { useSession } from "next-auth/react";
 
 const Schema = Yup.object().shape({
   name: Yup.string().required("Name is Required"),
@@ -27,7 +32,10 @@ const Schema = Yup.object().shape({
     .of(
       Yup.object({
         email: Yup.string().required(),
-        role: Yup.string().oneOf(["employee", "employer"] as const),
+        role: Yup.string()
+          .oneOf(["employee", "employer"] as const)
+          .required()
+          .nonNullable(),
       }).required()
     )
     .required(),
@@ -41,6 +49,10 @@ type Props = {
 };
 export const CreateProjectModel = (props: Props) => {
   const { isOpen, onClose } = props;
+
+  const router = useRouter();
+
+  const { data: sessionData } = useSession();
 
   const {
     handleSubmit,
@@ -60,7 +72,17 @@ export const CreateProjectModel = (props: Props) => {
     validateOnChange: true,
     validateOnBlur: true,
     validateOnMount: true,
-    onSubmit: async (values) => {},
+    onSubmit: async (values) => {
+      if (!sessionData) return;
+      await createProject({ ...values, token: sessionData.user.accessToken })
+        .then((results) => {
+          toast.success(results.message);
+          router.reload();
+        })
+        .catch((err) => {
+          toast.error(err.message ?? "Uh oh! Something went wrong.");
+        });
+    },
   });
 
   const updatedEmail = (index: number, value: string) => {
@@ -88,7 +110,7 @@ export const CreateProjectModel = (props: Props) => {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={() => onClose()}>
+    <Dialog open={isOpen} onOpenChange={() => !isSubmitting && onClose()}>
       <DialogContent className="sm:max-w-[525px] max-h-[90vh] overflow-y-scroll ">
         <DialogHeader>
           <DialogTitle>Create a project</DialogTitle>
@@ -106,6 +128,7 @@ export const CreateProjectModel = (props: Props) => {
             value={values.name}
             onChange={handleChange}
             onBlur={handleBlur}
+            disabled={isSubmitting}
             error={
               errors.name && values.name.length > 0 ? errors.name : undefined
             }
@@ -129,12 +152,14 @@ export const CreateProjectModel = (props: Props) => {
                     value={item.email}
                     onChange={(e) => updatedEmail(index, e.target.value)}
                     onBlur={handleBlur}
+                    disabled={isSubmitting}
                     classes={{ root: "w-full " }}
                     showErrorMessage={false}
                   />
 
                   <Select
                     value={item.role}
+                    disabled={isSubmitting}
                     onValueChange={(value) =>
                       updatedRole(index, value as "employee" | "employer")
                     }
@@ -152,6 +177,7 @@ export const CreateProjectModel = (props: Props) => {
                     <button
                       type="button"
                       onClick={() => removeEmail(index)}
+                      disabled={isSubmitting}
                       className="h-10 w-[40px] shrink-0 rounded-md border-[1.5px] border-slate-200 flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300"
                     >
                       <IoRemoveCircleOutline size={25} />
@@ -183,6 +209,12 @@ export const CreateProjectModel = (props: Props) => {
               className="mt-3"
             >
               Save
+              <MoonLoader
+                size={20}
+                color="white"
+                className="ml-2 text-white"
+                loading={isSubmitting}
+              />
             </Button>
           </div>
         </form>

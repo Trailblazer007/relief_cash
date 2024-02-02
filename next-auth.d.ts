@@ -1,7 +1,7 @@
 declare global {
   declare module "next-auth" {
     interface Session {
-      user: UserType;
+      user: NextAuthUserType;
     }
 
     interface JWT {
@@ -9,3 +9,8 @@ declare global {
     }
   }
 }
+
+type NextAuthUserType = UserType & {
+  accessToken: string;
+  refreshToken: string;
+};

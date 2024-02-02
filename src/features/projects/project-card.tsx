@@ -17,20 +17,53 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { deleteProject } from "@/services/delete-project";
+import { toast } from "sonner";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import { MoonLoader } from "react-spinners";
 
-type Props = {
-  name: string;
-  users: { firstName: string; lastName: string }[];
-  createdAt: Date;
-};
+type Props = ProjectType;
+
 export const ProjectCard = (props: Props) => {
-  const { name, createdAt, users } = props;
-  return (
-    <div className="h-[200px] border-[1.5px] border-slate-200/80 rounded-md py-3 px-4 flex flex-col">
-      <div className="flex items-center justify-between">
-        <h1 className="font-medium text-lg">{name}</h1>
+  const { name, createdAt, members, projectId } = props;
 
-        <AlertDialog>
+  const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const { data: sessionData } = useSession();
+
+  const router = useRouter();
+
+  const handleDelete = async () => {
+    if (!sessionData) return;
+    setIsLoading(true);
+    await deleteProject({ projectId, token: sessionData.user.accessToken })
+      .then((results) => {
+        toast.success(results.message);
+        router.reload();
+      })
+      .catch((err) => {
+        toast.error(err.message ?? "Uh oh! Something went wrong.");
+      })
+      .finally(() => setIsLoading(false));
+  };
+  return (
+    <div className="h-[180px] border-[1.5px] border-slate-200/80 rounded-md py-3 px-4 flex flex-col">
+      <div className="flex items-center justify-between">
+        <h1
+          onClick={() => router.push(`/projects/${projectId}`)}
+          className="font-medium text-lg hover:underline cursor-pointer"
+        >
+          {name}
+        </h1>
+
+        <AlertDialog
+          open={isOpen}
+          onOpenChange={(value) => !isLoading && setIsOpen(value)}
+        >
           <AlertDialogTrigger>
             <button
               type="button"
@@ -42,15 +75,23 @@ export const ProjectCard = (props: Props) => {
 
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle >Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
               <AlertDialogDescription>
                 This action cannot be undone. This will permanently delete your
                 project and remove your data from our servers.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>Continue</AlertDialogAction>
+              <AlertDialogCancel disabled={isLoading}>Cancel</AlertDialogCancel>
+              <Button onClick={handleDelete}>
+                Delete{" "}
+                <MoonLoader
+                  size={20}
+                  color="white"
+                  className="ml-2 text-white"
+                  loading={isLoading}
+                />
+              </Button>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
@@ -65,20 +106,20 @@ export const ProjectCard = (props: Props) => {
           </button>
 
           <p className="text-sm">
-            <TimeAgo date="Feb 1, 2023" />
+            <TimeAgo date={new Date(createdAt)} />
           </p>
         </div>
 
         <div className="flex items-center -space-x-5">
-          {users.map((user, index) => (
+          {members.map((member, index) => (
             <Avatar
               key={index}
-              fallback={user.lastName.charAt(0) + user.firstName.charAt(0)}
+              fallback={member.lastName.charAt(0) + member.firstName.charAt(0)}
               className="h-[40px] w-[40px] border-2 border-slate-200 dark:border-neutral-800"
             >
               <AvatarImage
-                src={`https://api.dicebear.com/7.x/adventurer/svg?seed=${user.firstName}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`}
-                alt="@shadcn"
+                src={`https://api.dicebear.com/7.x/adventurer/svg?seed=${member.firstName}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`}
+                alt=""
               />
             </Avatar>
           ))}

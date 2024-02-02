@@ -4,7 +4,7 @@ type Args = {
   link: string;
 };
 
-const projectMemberInvite = ({
+export const projectMemberInvite = ({
   name,
   projectName,
   link,
@@ -38,8 +38,8 @@ const projectMemberInvite = ({
         <td>
           <img
             alt="Dashify"
-            src="https://dashify-client.vercel.app/dashify-logo.png"
-            width="170"
+            src="https://relief-hackathon.vercel.app/logo.png"
+            width="auto"
             height="50"
             style="
               display: block;
@@ -89,7 +89,7 @@ const projectMemberInvite = ({
                     href=${link}
                     target="_blank"
                     style="
-                      background-color: #4f46e5;
+                      background-color: #07D46F;
                       border-radius: 3px;
                       color: #fff;
                       font-size: 16px;
@@ -104,7 +104,7 @@ const projectMemberInvite = ({
                     "
                     ><span
                       style="
-                        background-color: #4f46e5;
+                        background-color: #07D46F;
                         border-radius: 3px;
                         color: #fff;
                         font-size: 16px;

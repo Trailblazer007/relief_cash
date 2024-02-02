@@ -19,6 +19,9 @@ type TaskType = {
 
 type MemberType = {
   uid: string;
+  firstName: string;
+  lastName: string;
+  email: string;
   role: "employee" | "employer";
 };
 
@@ -30,6 +33,7 @@ type InvitationType = {
 
 type ProjectType = {
   name: string;
+  projectId: string;
   tasks: TaskType[];
   members: MemberType[];
   invitations: InvitationType[];

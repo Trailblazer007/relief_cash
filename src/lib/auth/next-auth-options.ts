@@ -3,7 +3,6 @@ import { isExpired } from "react-jwt";
 import { LoginCredential } from "./login-credential";
 import { refreshToken } from "./refresh-token";
 
-
 export const nextAuthOptions: NextAuthOptions = {
   session: { strategy: "jwt", maxAge: 3600 * 24 },
   secret: process.env.NEXTAUTH_SECRET,
@@ -20,7 +19,7 @@ export const nextAuthOptions: NextAuthOptions = {
         return { ...token, ...user, accessToken };
       }
 
-      if (!isExpired((token as any)?.accessToken)) {
+      if (token.accessToken && !isExpired((token as any)?.accessToken)) {
         return { ...token, ...user };
       } else {
         const accessToken = await refreshToken(token?.refreshToken as any);
