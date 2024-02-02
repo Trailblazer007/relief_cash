@@ -10,9 +10,15 @@ import {
 } from "react-icons/io5";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSession } from "next-auth/react";
+import { Hamburger } from "@/components/hamburger";
 
-type Props = {};
+type Props = {
+  canShowMenu?: boolean;
+  isOpen?: boolean;
+  setIsOpen?: (value: boolean) => void;
+};
 export const Navbar = (props: Props) => {
+  const { canShowMenu = false, setIsOpen, isOpen } = props;
   const { data } = useSession();
   const [input, setInput] = useState("");
   const handleSubmit = (e: FormEvent) => {
@@ -22,20 +28,30 @@ export const Navbar = (props: Props) => {
     <nav className="flex items-center justify-between h-[60px] px-5 lg:px-10 border-b-[1.5px] border-slate-100">
       {/* logo */}
 
-      <Link href="/projects">
-        <div className="flex items-center cursor-pointer">
-          <Image
-            src="/logo.png"
-            width={32}
-            height={32}
-            alt="Dashify logo"
-            className="h-8 w-auto"
+      <div className="flex items-center justify-center gap-2">
+        {canShowMenu && (
+          <Hamburger
+            className="lg:hidden text-black"
+            onToggle={setIsOpen}
+            toggled={isOpen}
+            size={20}
           />
-          <p className="text-black dark:text-white text-xl ml-2 font-bold">
-            Relief
-          </p>
-        </div>
-      </Link>
+        )}
+        <Link href="/projects">
+          <div className="flex items-center cursor-pointer">
+            <Image
+              src="/logo.png"
+              width={32}
+              height={32}
+              alt="Dashify logo"
+              className="h-8 w-auto"
+            />
+            <p className="text-black dark:text-white text-xl ml-2 font-bold">
+              Relief
+            </p>
+          </div>
+        </Link>
+      </div>
 
       {/* searchbar */}
 

@@ -1,4 +1,4 @@
-import { Navbar } from "@/features/projects";
+import { MobileWrapper, Navbar, Sidebar } from "@/features/projects";
 import { fetchProject } from "@/services/fetch-project";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
@@ -14,6 +14,7 @@ export default function Project() {
 
   const [data, setData] = useState<ProjectType | null>();
   const [isLoading, setIsLoading] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleFetch = useCallback(async () => {
     if (!sessionData || !params?.projectId) return;
@@ -43,21 +44,33 @@ export default function Project() {
       </Head>
 
       <main className="">
-        <Navbar />
+        <Navbar canShowMenu isOpen={isOpen} setIsOpen={setIsOpen} />
 
         {isLoading ? (
-          <div className="grid h-[calc(100vh-100px)] place-items-center">
+          <section className="grid h-[calc(100vh-100px)] place-items-center">
             <MoonLoader color="#07D46F" className="ml-2 text-white" />
-          </div>
+          </section>
         ) : data ? (
-          <div></div>
+          <>
+            <section className="flex h-[calc(100vh-60px)] ">
+              <Sidebar members={data.members} projectId={data.projectId} />
+
+              <div className="w-full"></div>
+            </section>
+            <MobileWrapper
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              members={data.members}
+              projectId={data.projectId}
+            />
+          </>
         ) : (
-          <div className="grid place-items-center h-[calc(100vh-100px)]">
+          <section className="grid place-items-center h-[calc(100vh-100px)]">
             <div className="text-center">
               <Image src="/empty.svg" alt="" width={200} height={200} />
               <p className="">Project not found yet</p>
             </div>
-          </div>
+          </section>
         )}
       </main>
     </Fragment>

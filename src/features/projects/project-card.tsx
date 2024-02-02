@@ -1,14 +1,8 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import {
-  IoCalendar,
-  IoEllipsisVertical,
-  IoTrash,
-  IoTrashOutline,
-} from "react-icons/io5";
+import { IoCalendar, IoTrashOutline } from "react-icons/io5";
 import TimeAgo from "react-timeago";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -19,37 +13,21 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { deleteProject } from "@/services/delete-project";
-import { toast } from "sonner";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { MoonLoader } from "react-spinners";
+import { useDeleteProject } from "@/hooks/useDeleteProject";
 
 type Props = ProjectType;
 
 export const ProjectCard = (props: Props) => {
   const { name, createdAt, members, projectId } = props;
 
-  const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
-  const { data: sessionData } = useSession();
 
   const router = useRouter();
 
-  const handleDelete = async () => {
-    if (!sessionData) return;
-    setIsLoading(true);
-    await deleteProject({ projectId, token: sessionData.user.accessToken })
-      .then((results) => {
-        toast.success(results.message);
-        router.reload();
-      })
-      .catch((err) => {
-        toast.error(err.message ?? "Uh oh! Something went wrong.");
-      })
-      .finally(() => setIsLoading(false));
-  };
+  const { isLoading, onDelete } = useDeleteProject(projectId);
   return (
     <div className="h-[180px] border-[1.5px] border-slate-200/80 rounded-md py-3 px-4 flex flex-col">
       <div className="flex items-center justify-between">
@@ -83,7 +61,7 @@ export const ProjectCard = (props: Props) => {
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel disabled={isLoading}>Cancel</AlertDialogCancel>
-              <Button onClick={handleDelete}>
+              <Button onClick={onDelete}>
                 Delete{" "}
                 <MoonLoader
                   size={20}
