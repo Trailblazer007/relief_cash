@@ -8,6 +8,9 @@ import { Button } from "@/components/ui/button";
 import { MoonLoader } from "react-spinners";
 import Link from "next/link";
 import Head from "next/head";
+import { signIn } from "next-auth/react";
+import { toast } from "sonner";
+import { useRouter } from "next/router";
 
 const Schema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is Required"),
@@ -25,6 +28,7 @@ const Schema = Yup.object().shape({
 type SchemaType = Yup.InferType<typeof Schema>;
 
 export default function Signin() {
+  const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const {
     handleSubmit,
@@ -44,16 +48,16 @@ export default function Signin() {
     validateOnBlur: true,
     validateOnMount: true,
     onSubmit: async (values) => {
-      // await signIn("credentials", { redirect: false, ...values }).then(
-      //   ({ ok, error }: any) => {
-      //     if (ok) {
-      //       toast.success("Successfully logged in");
-      //       router.replace(callbackUrl ?? "/dashboard");
-      //     } else {
-      //       toast.error(error ?? "Uh oh! Something went wrong.");
-      //     }
-      //   }
-      // );
+      await signIn("credentials", { redirect: false, ...values }).then(
+        ({ ok, error }: any) => {
+          if (ok) {
+            toast.success("Successfully logged in");
+            router.replace("/projects");
+          } else {
+            toast.error(error ?? "Uh oh! Something went wrong.");
+          }
+        }
+      );
     },
   });
   return (
