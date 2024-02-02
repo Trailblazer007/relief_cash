@@ -5,6 +5,8 @@ import "@/styles/globals.css";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { Ubuntu } from "next/font/google";
+import Head from "next/head";
+import { Fragment } from "react";
 
 const poppins = Ubuntu({
   variable: "--font-poppins",
@@ -18,14 +20,37 @@ export default function App({
   pageProps: { session, ...pageProps },
 }: AppProps) {
   return (
-    <SessionProvider session={session}>
-      <AuthStateChanged>
-        <main className={cn(poppins.className, "mx-auto w-full max-w-7xl")}>
-          <Component {...pageProps} />
+    <Fragment>
+      <Head>
+        <meta name="title" content={`Relief | ${process.env.BASE_URL}`} />
+        <link rel="icon" href="/logo.jpg" />
 
-          <Toaster />
-        </main>
-      </AuthStateChanged>
-    </SessionProvider>
+        <meta
+          key="og:url"
+          property="og:url"
+          content={`${process.env.BASE_URL}${pageProps.router.pathname}`}
+        />
+        <meta key="og:type" property="og:type" content="article" />
+        <meta
+          key="og:description"
+          property="og:description"
+          content="Track your employees"
+        />
+        <meta
+          key="og:image"
+          property="og:image"
+          content={`${process.env.BASE_URL}/logo.jpg`}
+        />
+      </Head>
+      <SessionProvider session={session}>
+        <AuthStateChanged>
+          <main className={cn(poppins.className, "mx-auto w-full max-w-7xl")}>
+            <Component {...pageProps} />
+
+            <Toaster />
+          </main>
+        </AuthStateChanged>
+      </SessionProvider>
+    </Fragment>
   );
 }
