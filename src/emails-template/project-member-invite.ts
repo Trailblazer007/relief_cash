@@ -127,31 +127,6 @@ const projectMemberInvite = ({
               </tr>
             </tbody>
           </table>
-
-          <p
-            style="
-              color: gray;
-              font-size: 12px;
-              line-height: 24px;
-              text-align: center;
-              margin-top: 24px;
-            "
-          >
-            If you’re having trouble with the button above, copy and paste the
-            URL below into your web browser.
-          </p>
-
-          <a
-            href="https://www.sanity.io/user/invite/project/pMdOndoYWYEhIZymhNzL40kqEmoVwZB9FSDBkF56T?version=2021-06-07"
-            style="
-              word-break: break-all;
-              font-size: 12px;
-              line-height: 24px;
-              text-align: center;
-              margin-top: 24px;
-            "
-            >https://www.sanity.io/user/invite/project/pMdOndoYWYEhIZymhNzL40kqEmoVwZB9FSDBkF56T?version=2021-06-07</a
-          >
         </td>
       </tr>
     </table>
