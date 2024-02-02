@@ -198,7 +198,7 @@ const SidebarContent = (props: Props) => {
       <CreateTaskModel
         projectId={projectId}
         isOpen={isTaskOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={() => setIsTaskOpen(false)}
         members={members}
       />
     </Fragment>
