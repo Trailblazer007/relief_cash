@@ -82,6 +82,16 @@ const SidebarContent = (props: Props) => {
 
         <button
           type="button"
+          disabled={!canCreateTask}
+          onClick={() => router.push(`/projects/${projectId}/payrolls`)}
+          className="px-2 py-1 w-full text-start font-medium  bg-slate-100 h-[32px] border border-slate-200 rounded-md hover:scale-105 active:scale-95 transition-all duration-300 text-sm disabled:scale-100 disabled:opacity-60 disabled:cursor-not-allowed mt-5"
+        >
+          {" "}
+          Payrolls
+        </button>
+
+        <button
+          type="button"
           onClick={() => router.push(`/projects/${projectId}/invitation`)}
           className="px-2 py-1 w-full text-start font-medium  bg-slate-100 h-[32px] border border-slate-200 rounded-md hover:scale-105 active:scale-95 transition-all duration-300 text-sm disabled:scale-100 disabled:opacity-60 disabled:cursor-not-allowed mt-5"
         >
