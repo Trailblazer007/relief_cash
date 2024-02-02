@@ -5,6 +5,30 @@
   @apply p-0 m-0;
 }
 
+*::-webkit-scrollbar {
+  @apply w-[5px] h-[5px];
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply rounded-[30px] bg-primary;
+}
+
+*::-webkit-scrollbar-track {
+  @apply bg-transparent relative top-0 right-0;
+}
+
+*::-webkit-scrollbar-track-piece {
+  @apply bg-transparent;
+}
+
+*::-ms-scrollbar {
+  @apply w-[5px] h-[5px];
+}
+
+body {
+  @apply font-sans;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
