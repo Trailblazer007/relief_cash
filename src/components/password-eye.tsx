@@ -17,13 +17,11 @@ export const PasswordEye = (props: Props) => {
       {isVisible ? (
         <IoEyeOff
           size={25}
-          variant="Bold"
           className="text-black dark:text-white text-[20px] px-[2px]"
         />
       ) : (
         <IoEye
           size={25}
-          variant="Bold"
           className="text-black dark:text-white text-[20px] px-[2px]"
         />
       )}
