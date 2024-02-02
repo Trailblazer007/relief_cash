@@ -35,7 +35,7 @@ export default function Member() {
         members={project?.members ?? []}
         projectId={params?.projectId}
       >
-        {member && (
+        {member ? (
           <Fragment>
             <h1 className="text-3xl font-bold ">
               {member.lastName + " " + member.firstName}
@@ -96,6 +96,13 @@ export default function Member() {
               </div>
             )}
           </Fragment>
+        ) : (
+          <section className="grid place-items-center h-[calc(100vh-100px)]">
+            <div className="text-center">
+              <Image src="/empty.svg" alt="" width={200} height={200} />
+              <p className="">Member to found</p>
+            </div>
+          </section>
         )}
       </ProjectLayout>
     </Fragment>

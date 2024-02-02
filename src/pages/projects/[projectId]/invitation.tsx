@@ -19,6 +19,7 @@ import { IoTrashOutline } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
 import { MoonLoader } from "react-spinners";
 import { useDeleteInvite } from "@/hooks/useDeleteInvite";
+import Image from "next/image";
 
 export default function Invitation() {
   const params = useParams<{ projectId: string }>();
@@ -49,7 +50,7 @@ export default function Invitation() {
         <h1 className="text-3xl font-bold ">Invitations</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
-          {project?.invitations &&
+          {project?.invitations && project.invitations.length > 0 ? (
             project?.invitations.map((member, index) => (
               <div
                 key={index}
@@ -101,7 +102,15 @@ export default function Invitation() {
                   </AlertDialogContent>
                 </AlertDialog>
               </div>
-            ))}
+            ))
+          ) : (
+            <section className="grid place-items-center h-[calc(100vh-100px)]">
+              <div className="text-center">
+                <Image src="/empty.svg" alt="" width={200} height={200} />
+                <p className="">No invitation yet</p>
+              </div>
+            </section>
+          )}
         </div>
       </ProjectLayout>
     </Fragment>
