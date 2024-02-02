@@ -70,6 +70,8 @@ const handler: NextApiHandler<DataType> = async (
             lastName: user.lastName,
             email: user.email,
             signInHistory: [],
+            payrollHistoryts: [],
+            salary: "",
             role: "employer",
           },
         ],

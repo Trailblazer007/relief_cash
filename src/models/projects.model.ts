@@ -9,7 +9,7 @@ const taskSchema = new Schema<TaskType>({
 });
 
 const memberSchema = new Schema<MemberType>({
-  uid: { type: String, unique: true, required: true },
+  uid: { type: String, required: true },
   firstName: {
     type: String,
     required: true,
