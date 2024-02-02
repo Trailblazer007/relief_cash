@@ -57,7 +57,7 @@ export default function Project() {
 
                   <div className="flex items-center gap-2">
                     <p className="">{format(item.dueDate, "PPPP")}</p>
-                    <div className="bg-green-500/10 rounded-full font-bold text-green-500 p-2">
+                    <div className="hidden lg:block bg-green-500/10 rounded-full font-bold text-green-500 p-2">
                       <Countdown date={new Date(item.dueDate)} />
                     </div>
                   </div>
