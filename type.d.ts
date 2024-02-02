@@ -21,9 +21,11 @@ type MemberType = {
   uid: string;
   firstName: string;
   lastName: string;
+  salary: string;
   email: string;
   role: "employee" | "employer";
   signInHistory: Date[];
+  payrollHistory: Date[];
 };
 
 type InvitationType = {

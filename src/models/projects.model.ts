@@ -26,7 +26,9 @@ const memberSchema = new Schema<MemberType>({
     unique: true,
   },
   role: { type: String, enum: ["employee", "employer"], required: true },
+  salary: { type: String },
   signInHistory: { type: [Date], default: [] },
+  payrollHistory: { type: [Date], default: [] },
 });
 const invitationSchema = new Schema<InvitationType>({
   role: { type: String, enum: ["employee", "employer"], required: true },
