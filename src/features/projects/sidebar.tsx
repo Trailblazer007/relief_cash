@@ -54,7 +54,7 @@ const SidebarContent = (props: Props) => {
   );
   return (
     <Fragment>
-      <div className="shrink-0 w-full lg:w-[280px] h-full border-r-[1.5px] border-slate-100 py-10 pl-10 pr-5 flex flex-col overflow-y-auto">
+      <div className="shrink-0 w-full lg:w-[280px] h-full border-r-[1.5px] border-slate-100 py-10 pl-5 lg:pl-10 pr-5 flex flex-col overflow-y-auto">
         <div className="flex items-center space-x-2">
           <button
             type="button"
