@@ -28,7 +28,7 @@ export default function App({
         <meta
           key="og:url"
           property="og:url"
-          content={`${process.env.BASE_URL}${pageProps.router.pathname}`}
+          content={`${process.env.BASE_URL}`}
         />
         <meta key="og:type" property="og:type" content="article" />
         <meta
