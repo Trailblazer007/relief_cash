@@ -18,6 +18,7 @@ import { useSession } from "next-auth/react";
 import { useDeleteProject } from "@/hooks/useDeleteProject";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOnClickOutside, useWindowSize } from "usehooks-ts";
+import { useRouter } from "next/router";
 
 type Props = {
   members: MemberType[];
@@ -39,6 +40,8 @@ const SidebarContent = (props: Props) => {
   const { isLoading, onDelete } = useDeleteProject(projectId);
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+  const router = useRouter();
 
   const canCreateTask = !!members.find(
     (member) =>
@@ -70,6 +73,9 @@ const SidebarContent = (props: Props) => {
         {members.slice(0, 6).map((member, index) => (
           <div
             key={index}
+            onClick={() =>
+              router.push(`/projects/${projectId}/members/${member.uid}`)
+            }
             className="flex items-center gap-2 hover:bg-slate-100 transition-all duration-300 p-1 rounded-md border border-transparent hover:border-slate-200 cursor-pointer"
           >
             <Avatar
