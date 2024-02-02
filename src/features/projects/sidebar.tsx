@@ -1,7 +1,7 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { IoRefresh, IoTrashOutline } from "react-icons/io5";
+import { Fragment, useEffect, useRef, useState } from "react";
+import { IoAdd, IoRefresh, IoTrashOutline } from "react-icons/io5";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -19,6 +19,7 @@ import { useDeleteProject } from "@/hooks/useDeleteProject";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOnClickOutside, useWindowSize } from "usehooks-ts";
 import { useRouter } from "next/router";
+import { InviteMemberModel } from "./invite-member-model";
 
 type Props = {
   members: MemberType[];
@@ -41,6 +42,8 @@ const SidebarContent = (props: Props) => {
 
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
+  const [isOpen, setIsOpen] = useState(false);
+
   const router = useRouter();
 
   const canCreateTask = !!members.find(
@@ -48,100 +51,128 @@ const SidebarContent = (props: Props) => {
       member.email === sessionData?.user.email && member.role === "employer"
   );
   return (
-    <div className="shrink-0 w-full lg:w-[280px] h-full border-r-[1.5px] border-slate-100 py-10 pl-10 pr-5 flex flex-col">
-      <div className="flex items-center space-x-2">
-        <button
-          type="button"
-          disabled={!canCreateTask}
-          className="px-2 py-1 w-full text-start font-medium  bg-slate-100 h-[32px] border border-slate-200 rounded-md hover:scale-105 active:scale-95 transition-all duration-300 text-sm disabled:scale-100 disabled:opacity-60 disabled:cursor-not-allowed"
-        >
-          {" "}
-          Create Task
-        </button>
-        <button
-          type="button"
-          className="flex items-center justify-center w-[32px] shrink-0 bg-slate-100 border border-slate-200 rounded-md h-[32px] hover:scale-105 active:scale-95 transition-all duration-300"
-        >
-          <IoRefresh />
-        </button>
-      </div>
-
-      <div className="my-10 space-y-3">
-        <div className="">
-          <p className="font-medium text-sm pl-1">Members</p>
-        </div>
-        {members.slice(0, 6).map((member, index) => (
-          <div
-            key={index}
-            onClick={() =>
-              router.push(`/projects/${projectId}/members/${member.uid}`)
-            }
-            className="flex items-center gap-2 hover:bg-slate-100 transition-all duration-300 p-1 rounded-md border border-transparent hover:border-slate-200 cursor-pointer"
-          >
-            <Avatar
-              fallback={member.lastName.charAt(0) + member.firstName.charAt(0)}
-              className="h-[30px] w-[30px]"
-            >
-              <AvatarImage
-                src={`https://api.dicebear.com/7.x/adventurer/svg?seed=${member.firstName}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`}
-                alt=""
-              />
-            </Avatar>
-
-            <p className="text-sm">
-              {member.lastName + " " + member.firstName}
-            </p>
-          </div>
-        ))}
-
-        {members.length > 6 && (
-          <div className="pl-2">
-            <Link
-              href={`/projects/${projectId}/members`}
-              className="text-sm hover:underline"
-            >
-              See more
-            </Link>
-          </div>
-        )}
-      </div>
-
-      <AlertDialog
-        open={isDeleteOpen}
-        onOpenChange={(value) => !isLoading && setIsDeleteOpen(value)}
-      >
-        <AlertDialogTrigger className="w-full mt-auto">
+    <Fragment>
+      <div className="shrink-0 w-full lg:w-[280px] h-full border-r-[1.5px] border-slate-100 py-10 pl-10 pr-5 flex flex-col">
+        <div className="flex items-center space-x-2">
           <button
             type="button"
-            className="px-2 py-1 w-full text-start font-medium text-red-500  bg-red-500/10 h-[32px] border  rounded-md hover:scale-105 active:scale-95 transition-all duration-300 text-sm flex items-center border-red-500/30 gap-2"
+            disabled={!canCreateTask}
+            className="px-2 py-1 w-full text-start font-medium  bg-slate-100 h-[32px] border border-slate-200 rounded-md hover:scale-105 active:scale-95 transition-all duration-300 text-sm disabled:scale-100 disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            <IoTrashOutline size={20} />
-            Delete project
+            {" "}
+            Create Task
           </button>
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              project and remove your data from our servers.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={isLoading}>Cancel</AlertDialogCancel>
-            <Button onClick={onDelete}>
-              Delete{" "}
-              <MoonLoader
-                size={20}
-                color="white"
-                className="ml-2 text-white"
-                loading={isLoading}
-              />
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </div>
+          <button
+            type="button"
+            className="flex items-center justify-center w-[32px] shrink-0 bg-slate-100 border border-slate-200 rounded-md h-[32px] hover:scale-105 active:scale-95 transition-all duration-300"
+          >
+            <IoRefresh />
+          </button>
+        </div>
+
+        {/* <button
+          type="button"
+          disabled={!canCreateTask}
+          onClick={() => router.push(`/projects/${projectId}`)}
+          className="px-2 py-1 w-full text-start font-medium  bg-slate-100 h-[32px] border border-slate-200 rounded-md hover:scale-105 active:scale-95 transition-all duration-300 text-sm disabled:scale-100 disabled:opacity-60 disabled:cursor-not-allowed mt-5"
+        >
+          {" "}
+          Tasks
+        </button> */}
+
+        <div className="my-10 space-y-3">
+          <div className="flex items-center justify-between">
+            <p className="font-medium text-sm pl-1">Members</p>
+
+            <button
+              type="button"
+              onClick={() => setIsOpen(true)}
+              className="flex items-center justify-center w-[32px] shrink-0 bg-slate-100 border border-slate-200 rounded-md h-[32px] hover:scale-105 active:scale-95 transition-all duration-300 disabled:scale-100 disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              <IoAdd />
+            </button>
+          </div>
+          {members.slice(0, 6).map((member, index) => (
+            <div
+              key={index}
+              onClick={() =>
+                router.push(`/projects/${projectId}/members/${member.uid}`)
+              }
+              className="flex items-center gap-2 hover:bg-slate-100 transition-all duration-300 p-1 rounded-md border border-transparent hover:border-slate-200 cursor-pointer"
+            >
+              <Avatar
+                fallback={
+                  member.lastName.charAt(0) + member.firstName.charAt(0)
+                }
+                className="h-[30px] w-[30px]"
+              >
+                <AvatarImage
+                  src={`https://api.dicebear.com/7.x/adventurer/svg?seed=${member.firstName}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`}
+                  alt=""
+                />
+              </Avatar>
+
+              <p className="text-sm">
+                {member.lastName + " " + member.firstName}
+              </p>
+            </div>
+          ))}
+
+          {members.length > 6 && (
+            <div className="pl-2">
+              <Link
+                href={`/projects/${projectId}/members`}
+                className="text-sm hover:underline"
+              >
+                See more
+              </Link>
+            </div>
+          )}
+        </div>
+
+        <AlertDialog
+          open={isDeleteOpen}
+          onOpenChange={(value) => !isLoading && setIsDeleteOpen(value)}
+        >
+          <AlertDialogTrigger className="w-full mt-auto">
+            <button
+              type="button"
+              className="px-2 py-1 w-full text-start font-medium text-red-500  bg-red-500/10 h-[32px] border  rounded-md hover:scale-105 active:scale-95 transition-all duration-300 text-sm flex items-center border-red-500/30 gap-2"
+            >
+              <IoTrashOutline size={20} />
+              Delete project
+            </button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete your
+                project and remove your data from our servers.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel disabled={isLoading}>Cancel</AlertDialogCancel>
+              <Button onClick={onDelete}>
+                Delete{" "}
+                <MoonLoader
+                  size={20}
+                  color="white"
+                  className="ml-2 text-white"
+                  loading={isLoading}
+                />
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
+
+      <InviteMemberModel
+        projectId={projectId}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+      />
+    </Fragment>
   );
 };
 

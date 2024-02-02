@@ -9,7 +9,6 @@ export const useFetchProject = (projectId: string) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleFetch = useCallback(async () => {
-
     setIsLoading(true);
 
     await fetchProject({
@@ -17,7 +16,6 @@ export const useFetchProject = (projectId: string) => {
       projectId: projectId as string,
     })
       .then((results) => {
-        console.log(results);
         setData(results);
       })
       .finally(() => setIsLoading(false));

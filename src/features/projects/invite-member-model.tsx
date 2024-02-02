@@ -25,9 +25,9 @@ import { useRouter } from "next/router";
 import { toast } from "sonner";
 import { MoonLoader } from "react-spinners";
 import { useSession } from "next-auth/react";
+import { sendInvite } from "@/services/send-invite";
 
 const Schema = Yup.object().shape({
-  name: Yup.string().required("Name is Required"),
   members: Yup.array()
     .of(
       Yup.object({
@@ -44,11 +44,12 @@ const Schema = Yup.object().shape({
 type SchemaType = Yup.InferType<typeof Schema>;
 
 type Props = {
+  projectId: string;
   isOpen: boolean;
   onClose: () => void;
 };
-export const CreateProjectModel = (props: Props) => {
-  const { isOpen, onClose } = props;
+export const InviteMemberModel = (props: Props) => {
+  const { isOpen, onClose, projectId } = props;
 
   const router = useRouter();
 
@@ -56,7 +57,6 @@ export const CreateProjectModel = (props: Props) => {
 
   const {
     handleSubmit,
-    handleChange,
     handleBlur,
     setFieldValue,
     values,
@@ -65,7 +65,6 @@ export const CreateProjectModel = (props: Props) => {
     isSubmitting,
   } = useFormik<SchemaType>({
     initialValues: {
-      name: "",
       members: [{ email: "", role: "employee" }],
     },
     validationSchema: Schema,
@@ -74,7 +73,11 @@ export const CreateProjectModel = (props: Props) => {
     validateOnMount: true,
     onSubmit: async (values) => {
       if (!sessionData) return;
-      await createProject({ ...values, token: sessionData.user.accessToken })
+      await sendInvite({
+        ...values,
+        token: sessionData.user.accessToken,
+        projectId,
+      })
         .then((results) => {
           toast.success(results.message);
           router.reload();
@@ -117,35 +120,13 @@ export const CreateProjectModel = (props: Props) => {
     <Dialog open={isOpen} onOpenChange={() => !isSubmitting && onClose()}>
       <DialogContent className="sm:max-w-[525px] max-h-[90vh] overflow-y-scroll ">
         <DialogHeader>
-          <DialogTitle>Create a project</DialogTitle>
+          <DialogTitle>Invite members</DialogTitle>
           <DialogDescription>
             Fill the fields. Click save when you&lsquo;re done.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-5">
-          <CustomInput
-            label="Project name"
-            name="name"
-            type="text"
-            autoComplete="name"
-            required
-            value={values.name}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            disabled={isSubmitting}
-            error={
-              errors.name && values.name.length > 0 ? errors.name : undefined
-            }
-          />
-
           <div className="">
-            <label
-              htmlFor="emails"
-              className="block text-base font-semibold leading-6 text-black dark:text-white"
-            >
-              Invite members
-            </label>
-
             <div className="my-2 space-y-3">
               {values.members.map((item, index) => (
                 <div key={index} className="flex items-center gap-2 w-full">

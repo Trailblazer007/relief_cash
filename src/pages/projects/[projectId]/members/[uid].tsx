@@ -91,7 +91,7 @@ export default function Member() {
               <div className="grid place-items-center mt-5">
                 <div className="text-center">
                   <Image src="/empty.svg" alt="" width={200} height={200} />
-                  <p className="">Member has not sign in yet</p>
+                  <p className="">Member has not signed in yet</p>
                 </div>
               </div>
             )}
