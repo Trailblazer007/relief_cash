@@ -15,7 +15,7 @@ export const ProjectLayout = (props: PropsWithChildren<Props>) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <main className="">
+    <main className="overflow-hidden">
       <Navbar canShowMenu isOpen={isOpen} setIsOpen={setIsOpen} />
 
       {isLoading ? (
@@ -24,10 +24,10 @@ export const ProjectLayout = (props: PropsWithChildren<Props>) => {
         </section>
       ) : isData ? (
         <>
-          <section className="flex h-[calc(100vh-60px)] ">
+          <section className="flex h-[calc(100vh-60px)] overflow-hidden">
             <Sidebar members={members} projectId={projectId} />
 
-            <div className="w-full p-5 lg:p-10">{children}</div>
+            <div className="w-full p-5 lg:p-10 overflow-y-auto">{children}</div>
           </section>
           <MobileWrapper
             isOpen={isOpen}
