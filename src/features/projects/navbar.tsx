@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 import {
+  IoLogOutOutline,
   IoMail,
   IoMailOutline,
   IoNotifications,
@@ -9,8 +10,13 @@ import {
   IoSearch,
 } from "react-icons/io5";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { Hamburger } from "@/components/hamburger";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 type Props = {
   canShowMenu?: boolean;
@@ -86,13 +92,29 @@ export const Navbar = (props: Props) => {
         >
           <IoNotificationsOutline size={25} />
         </button>
-        <Avatar>
-          <AvatarImage
-            src={`https://api.dicebear.com/7.x/adventurer/svg?seed=${data?.user.firstName}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`}
-            alt="@shadcn"
-          />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+
+        <Popover>
+          <PopoverTrigger>
+            <Avatar>
+              <AvatarImage
+                src={`https://api.dicebear.com/7.x/adventurer/svg?seed=${data?.user.firstName}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`}
+                alt="@shadcn"
+              />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+          </PopoverTrigger>
+
+          <PopoverContent>
+            <button
+              type="button"
+              onClick={() => signOut({ redirect: true })}
+              className="px-2 py-4 w-full text-start font-medium text-red-500  bg-red-500/10 h-[35px] border  rounded-md hover:scale-105 active:scale-95 transition-all duration-300 text-sm flex items-center border-red-500/30 gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              <IoLogOutOutline size={20} />
+              Sign out
+            </button>
+          </PopoverContent>
+        </Popover>
       </div>
     </nav>
   );
