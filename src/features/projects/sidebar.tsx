@@ -80,6 +80,15 @@ const SidebarContent = (props: Props) => {
           Tasks
         </button> */}
 
+        <button
+          type="button"
+          onClick={() => router.push(`/projects/${projectId}/invitation`)}
+          className="px-2 py-1 w-full text-start font-medium  bg-slate-100 h-[32px] border border-slate-200 rounded-md hover:scale-105 active:scale-95 transition-all duration-300 text-sm disabled:scale-100 disabled:opacity-60 disabled:cursor-not-allowed mt-5"
+        >
+          {" "}
+          Invitaion
+        </button>
+
         <div className="my-10 space-y-3">
           <div className="flex items-center justify-between">
             <p className="font-medium text-sm pl-1">Members</p>
@@ -137,7 +146,8 @@ const SidebarContent = (props: Props) => {
           <AlertDialogTrigger className="w-full mt-auto">
             <button
               type="button"
-              className="px-2 py-1 w-full text-start font-medium text-red-500  bg-red-500/10 h-[32px] border  rounded-md hover:scale-105 active:scale-95 transition-all duration-300 text-sm flex items-center border-red-500/30 gap-2"
+              disabled={!canCreateTask}
+              className="px-2 py-1 w-full text-start font-medium text-red-500  bg-red-500/10 h-[32px] border  rounded-md hover:scale-105 active:scale-95 transition-all duration-300 text-sm flex items-center border-red-500/30 gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
             >
               <IoTrashOutline size={20} />
               Delete project
