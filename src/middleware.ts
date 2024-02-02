@@ -14,6 +14,9 @@ export async function middleware(request: NextRequest) {
   if (!token || !token.accessToken) {
     // redirect if user is not authenticated and is in a protected route
     if (auth.protectedRoutes.some((path) => pathname.startsWith(path))) {
+      if (!request.url) {
+        return NextResponse.redirect(new URL(`/auth/signin`, request.url));
+      }
       return NextResponse.redirect(
         new URL(`/auth/signin?callbackUrl=${request.url}`, request.url)
       );

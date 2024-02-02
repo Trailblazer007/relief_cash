@@ -26,12 +26,6 @@ export default function Payrolls() {
       salary: string;
     }[]
   >(`payroll-${params?.projectId}`, []);
-  // const [items, setItems] = useState<
-  //   {
-  //     email: string;
-  //     salary: string;
-  //   }[]
-  // >([]);
 
   const [isOpen, setIsOpen] = useState(false);
 

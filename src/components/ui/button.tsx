@@ -13,7 +13,7 @@ const buttonVariants = cva(
         faded: "bg-primary/10 text-primary hover:bg-primary/20",
         outline:
           "border  border-primary bg-transparent hover:bg-primary/10 text-primary",
-        ghost: "hover:bg-primary/10 text-indigo-600 shadow-none",
+        ghost: "hover:bg-primary/10 text-primary shadow-none",
       },
       size: {
         default: "h-10 px-3.5 py-2.5",
