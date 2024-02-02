@@ -4,7 +4,6 @@ import Script from "next/script";
 import { FaEllipsisVertical, FaPlus } from "react-icons/fa6";
 import { CiMail } from "react-icons/ci";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { CiUser } from "react-icons/ci";
 import { IoMdSearch } from "react-icons/io";
 import { FaRegCalendarAlt } from "react-icons/fa";
 
@@ -21,7 +20,6 @@ const Projects = () => {
         {/* search input */}
         <div className="flex justify-between gap-4 items-center">
           <IoMdSearch />
-
           <input
             type="text"
             placeholder="search for projects, member, or files"
@@ -37,7 +35,13 @@ const Projects = () => {
             <IoIosNotificationsOutline />
           </div>
           <div>
-            <CiUser />
+            <Image
+              className="h-[50] aspect-square rounded-[50%] object-cover"
+              alt="user image"
+              height={50}
+              width={50}
+              src="/images/user4.avif"
+            />
           </div>
         </div>
       </div>
@@ -66,20 +70,20 @@ const Projects = () => {
           {/* card 1 */}
           <div className="shadow-xl  rounded-md w-80 p-6">
             <div className="flex items-center justify-between mb-6">
-              <div>
-                <h3 className="text-lg font-bold">Beta Feature Release</h3>
-                <p className="text-sm text-gray-400">2h Ago</p>
+              <div className="mb-10">
+                <h3 className="text-lg font-bold ">Beta Feature Release</h3>
+                <p className="text-sm text-gray-400 mt-6">2h Ago</p>
               </div>
 
-              <div>
+              <div className="self-start">
                 <FaEllipsisVertical />
               </div>
             </div>
 
             <div className=" flex justify-between items-center">
-              <div>
+              <div className="flex item-center gap-24 justify-between">
                 {/* card bottom left */}
-                <div className="flex items-center justify-between">
+                <div className="flex gap-4 items-center justify-between">
                   <div>
                     <FaRegCalendarAlt />
                   </div>
@@ -92,37 +96,28 @@ const Projects = () => {
                 <div className="flex items-center">
                   <div>
                     <Image
-                      className="h-[50%] aspect-square rounded-[50%]"
+                      className="h-[50%] aspect-square rounded-[50%] object-cover"
                       src="/images/user1.avif"
-                      height={50}
-                      width={50}
+                      height={30}
+                      width={30}
                       alt="user image"
                     />
                   </div>
                   <div>
                     <Image
-                      className="rounded-full"
+                      className="h-[50%] aspect-square rounded-[50%] object-cover"
                       src="/images/user1.avif"
-                      height={50}
-                      width={50}
+                      height={30}
+                      width={30}
                       alt="user image"
                     />
                   </div>
                   <div>
                     <Image
-                      className="rounded-full"
+                      className="h-[50%] aspect-square rounded-[50%] object-cover"
                       src="/images/user1.avif"
-                      height={50}
-                      width={50}
-                      alt="user image"
-                    />
-                  </div>
-                  <div>
-                    <Image
-                      className="rounded-full"
-                      src="/images/user1.avif"
-                      height={50}
-                      width={50}
+                      height={30}
+                      width={30}
                       alt="user image"
                     />
                   </div>
@@ -132,22 +127,22 @@ const Projects = () => {
           </div>
 
           {/* card 2 */}
-          <div className="shadow-xl rounded-md w-80 p-6">
+          <div className="shadow-xl  rounded-md w-80 p-6">
             <div className="flex items-center justify-between mb-6">
-              <div>
-                <h3 className="text-lg font-bold">Beta Feature Release</h3>
-                <p className="text-sm text-gray-400">2h Ago</p>
+              <div className="mb-10">
+                <h3 className="text-lg font-bold ">Beta Feature Release</h3>
+                <p className="text-sm text-gray-400 mt-6">2h Ago</p>
               </div>
 
-              <div>
+              <div className="self-start">
                 <FaEllipsisVertical />
               </div>
             </div>
 
             <div className=" flex justify-between items-center">
-              <div>
+              <div className="flex item-center gap-24 justify-between">
                 {/* card bottom left */}
-                <div className="flex items-center justify-between">
+                <div className="flex gap-4 items-center justify-between">
                   <div>
                     <FaRegCalendarAlt />
                   </div>
@@ -160,37 +155,28 @@ const Projects = () => {
                 <div className="flex items-center">
                   <div>
                     <Image
-                      className="rounded-full"
+                      className="h-[50%] aspect-square rounded-[50%] object-cover"
                       src="/images/user1.avif"
-                      height={50}
-                      width={50}
+                      height={30}
+                      width={30}
                       alt="user image"
                     />
                   </div>
                   <div>
                     <Image
-                      className="rounded-full"
+                      className="h-[50%] aspect-square rounded-[50%] object-cover"
                       src="/images/user1.avif"
-                      height={50}
-                      width={50}
+                      height={30}
+                      width={30}
                       alt="user image"
                     />
                   </div>
                   <div>
                     <Image
-                      className="rounded-full"
+                      className="h-[50%] aspect-square rounded-[50%] object-cover"
                       src="/images/user1.avif"
-                      height={50}
-                      width={50}
-                      alt="user image"
-                    />
-                  </div>
-                  <div>
-                    <Image
-                      className="rounded-full"
-                      src="/images/user1.avif"
-                      height={50}
-                      width={50}
+                      height={30}
+                      width={30}
                       alt="user image"
                     />
                   </div>
@@ -200,22 +186,22 @@ const Projects = () => {
           </div>
 
           {/* card 3 */}
-          <div className="shadow-xl rounded-md w-80 p-6">
+          <div className="shadow-xl  rounded-md w-80 p-6">
             <div className="flex items-center justify-between mb-6">
-              <div>
-                <h3 className="text-lg font-bold">Beta Feature Release</h3>
-                <p className="text-sm text-gray-400">2h Ago</p>
+              <div className="mb-10">
+                <h3 className="text-lg font-bold ">Beta Feature Release</h3>
+                <p className="text-sm text-gray-400 mt-6">2h Ago</p>
               </div>
 
-              <div>
+              <div className="self-start">
                 <FaEllipsisVertical />
               </div>
             </div>
 
             <div className=" flex justify-between items-center">
-              <div>
+              <div className="flex item-center gap-24 justify-between">
                 {/* card bottom left */}
-                <div className="flex items-center justify-between">
+                <div className="flex gap-4 items-center justify-between">
                   <div>
                     <FaRegCalendarAlt />
                   </div>
@@ -228,37 +214,28 @@ const Projects = () => {
                 <div className="flex items-center">
                   <div>
                     <Image
-                      className="rounded-full"
+                      className="h-[50%] aspect-square rounded-[50%] object-cover"
                       src="/images/user1.avif"
-                      height={50}
-                      width={50}
+                      height={30}
+                      width={30}
                       alt="user image"
                     />
                   </div>
                   <div>
                     <Image
-                      className="rounded-full"
+                      className="h-[50%] aspect-square rounded-[50%] object-cover"
                       src="/images/user1.avif"
-                      height={50}
-                      width={50}
+                      height={30}
+                      width={30}
                       alt="user image"
                     />
                   </div>
                   <div>
                     <Image
-                      className="rounded-full"
+                      className="h-[50%] aspect-square rounded-[50%] object-cover"
                       src="/images/user1.avif"
-                      height={50}
-                      width={50}
-                      alt="user image"
-                    />
-                  </div>
-                  <div>
-                    <Image
-                      className="rounded-full"
-                      src="/images/user1.avif"
-                      height={50}
-                      width={50}
+                      height={30}
+                      width={30}
                       alt="user image"
                     />
                   </div>
@@ -268,22 +245,22 @@ const Projects = () => {
           </div>
 
           {/* card 4 */}
-          <div className="shadow-xl rounded-md w-80 p-6">
+          <div className="shadow-xl  rounded-md w-80 p-6">
             <div className="flex items-center justify-between mb-6">
-              <div>
-                <h3 className="text-lg font-bold">Beta Feature Release</h3>
-                <p className="text-sm text-gray-400">2h Ago</p>
+              <div className="mb-10">
+                <h3 className="text-lg font-bold ">Beta Feature Release</h3>
+                <p className="text-sm text-gray-400 mt-6">2h Ago</p>
               </div>
 
-              <div>
+              <div className="self-start">
                 <FaEllipsisVertical />
               </div>
             </div>
 
             <div className=" flex justify-between items-center">
-              <div>
+              <div className="flex item-center gap-24 justify-between">
                 {/* card bottom left */}
-                <div className="flex items-center justify-between">
+                <div className="flex gap-4 items-center justify-between">
                   <div>
                     <FaRegCalendarAlt />
                   </div>
@@ -296,37 +273,28 @@ const Projects = () => {
                 <div className="flex items-center">
                   <div>
                     <Image
-                      className="rounded-full"
+                      className="h-[50%] aspect-square rounded-[50%] object-cover"
                       src="/images/user1.avif"
-                      height={50}
-                      width={50}
+                      height={30}
+                      width={30}
                       alt="user image"
                     />
                   </div>
                   <div>
                     <Image
-                      className="rounded-full"
+                      className="h-[50%] aspect-square rounded-[50%] object-cover"
                       src="/images/user1.avif"
-                      height={50}
-                      width={50}
+                      height={30}
+                      width={30}
                       alt="user image"
                     />
                   </div>
                   <div>
                     <Image
-                      className="rounded-full"
+                      className="h-[50%] aspect-square rounded-[50%] object-cover"
                       src="/images/user1.avif"
-                      height={50}
-                      width={50}
-                      alt="user image"
-                    />
-                  </div>
-                  <div>
-                    <Image
-                      className="rounded-full"
-                      src="/images/user1.avif"
-                      height={50}
-                      width={50}
+                      height={30}
+                      width={30}
                       alt="user image"
                     />
                   </div>
@@ -336,22 +304,22 @@ const Projects = () => {
           </div>
 
           {/* card 5 */}
-          <div className="shadow-xl rounded-md w-80 p-6">
+          <div className="shadow-xl  rounded-md w-80 p-6">
             <div className="flex items-center justify-between mb-6">
-              <div>
-                <h3 className="text-lg font-bold">Beta Feature Release</h3>
-                <p className="text-sm text-gray-400">2h Ago</p>
+              <div className="mb-10">
+                <h3 className="text-lg font-bold ">Beta Feature Release</h3>
+                <p className="text-sm text-gray-400 mt-6">2h Ago</p>
               </div>
 
-              <div>
+              <div className="self-start">
                 <FaEllipsisVertical />
               </div>
             </div>
 
             <div className=" flex justify-between items-center">
-              <div>
+              <div className="flex item-center gap-24 justify-between">
                 {/* card bottom left */}
-                <div className="flex items-center justify-between">
+                <div className="flex gap-4 items-center justify-between">
                   <div>
                     <FaRegCalendarAlt />
                   </div>
@@ -364,37 +332,28 @@ const Projects = () => {
                 <div className="flex items-center">
                   <div>
                     <Image
-                      className="rounded-full"
+                      className="h-[50%] aspect-square rounded-[50%] object-cover"
                       src="/images/user1.avif"
-                      height={50}
-                      width={50}
+                      height={30}
+                      width={30}
                       alt="user image"
                     />
                   </div>
                   <div>
                     <Image
-                      className="rounded-full"
+                      className="h-[50%] aspect-square rounded-[50%] object-cover"
                       src="/images/user1.avif"
-                      height={50}
-                      width={50}
+                      height={30}
+                      width={30}
                       alt="user image"
                     />
                   </div>
                   <div>
                     <Image
-                      className="rounded-full"
+                      className="h-[50%] aspect-square rounded-[50%] object-cover"
                       src="/images/user1.avif"
-                      height={50}
-                      width={50}
-                      alt="user image"
-                    />
-                  </div>
-                  <div>
-                    <Image
-                      className="rounded-full"
-                      src="/images/user1.avif"
-                      height={50}
-                      width={50}
+                      height={30}
+                      width={30}
                       alt="user image"
                     />
                   </div>
@@ -404,22 +363,22 @@ const Projects = () => {
           </div>
 
           {/* card 6 */}
-          <div className="shadow-xl rounded-md w-80 p-6">
+          <div className="shadow-xl  rounded-md w-80 p-6">
             <div className="flex items-center justify-between mb-6">
-              <div>
-                <h3 className="text-lg font-bold">Beta Feature Release</h3>
-                <p className="text-sm text-gray-400">2h Ago</p>
+              <div className="mb-10">
+                <h3 className="text-lg font-bold ">Beta Feature Release</h3>
+                <p className="text-sm text-gray-400 mt-6">2h Ago</p>
               </div>
 
-              <div>
+              <div className="self-start">
                 <FaEllipsisVertical />
               </div>
             </div>
 
             <div className=" flex justify-between items-center">
-              <div>
+              <div className="flex item-center gap-24 justify-between">
                 {/* card bottom left */}
-                <div className="flex items-center justify-between">
+                <div className="flex gap-4 items-center justify-between">
                   <div>
                     <FaRegCalendarAlt />
                   </div>
@@ -432,37 +391,28 @@ const Projects = () => {
                 <div className="flex items-center">
                   <div>
                     <Image
-                      className="rounded-full"
+                      className="h-[50%] aspect-square rounded-[50%] object-cover"
                       src="/images/user1.avif"
-                      height={50}
-                      width={50}
+                      height={30}
+                      width={30}
                       alt="user image"
                     />
                   </div>
                   <div>
                     <Image
-                      className="rounded-full"
+                      className="h-[50%] aspect-square rounded-[50%] object-cover"
                       src="/images/user1.avif"
-                      height={50}
-                      width={50}
+                      height={30}
+                      width={30}
                       alt="user image"
                     />
                   </div>
                   <div>
                     <Image
-                      className="rounded-full"
+                      className="h-[50%] aspect-square rounded-[50%] object-cover"
                       src="/images/user1.avif"
-                      height={50}
-                      width={50}
-                      alt="user image"
-                    />
-                  </div>
-                  <div>
-                    <Image
-                      className="rounded-full"
-                      src="/images/user1.avif"
-                      height={50}
-                      width={50}
+                      height={30}
+                      width={30}
                       alt="user image"
                     />
                   </div>
