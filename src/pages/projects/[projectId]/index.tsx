@@ -43,7 +43,7 @@ export default function Project() {
         projectId={params?.projectId}
       >
         {items?.length > 0 ? (
-          <div className="mt-10">
+          <div className="mt-10 space-y-6">
             {items.map((item, index) => (
               <div
                 key={index}
