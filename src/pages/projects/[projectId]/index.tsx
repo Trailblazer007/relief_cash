@@ -42,6 +42,9 @@ export default function Project() {
         members={project?.members ?? []}
         projectId={params?.projectId}
       >
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl font-bold">Tasks</h1>
+        </div>
         {items?.length > 0 ? (
           <div className="mt-10 space-y-6">
             {items.map((item, index) => (
