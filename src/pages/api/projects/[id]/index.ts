@@ -16,8 +16,6 @@ const handler: NextApiHandler<DataType> = async (
 
       const projectId = req.query.id;
 
-      console.log(projectId);
-
       const { sub } = getTokenPayload(req.headers, "x-access-token");
 
       const user = await User.findOne<UserType>({

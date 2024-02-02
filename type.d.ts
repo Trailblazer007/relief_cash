@@ -23,6 +23,7 @@ type MemberType = {
   lastName: string;
   email: string;
   role: "employee" | "employer";
+  signInHistory: Date[];
 };
 
 type InvitationType = {

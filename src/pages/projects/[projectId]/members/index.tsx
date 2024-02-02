@@ -1,6 +1,7 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { ProjectLayout } from "@/features/projects/layout";
 import { useFetchProject } from "@/hooks/useFetchProject";
+import { useSignIn } from "@/hooks/useSignIn";
 import Head from "next/head";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/router";
@@ -11,6 +12,8 @@ export default function Members() {
   const router = useRouter();
 
   const { isLoading, project } = useFetchProject(params?.projectId);
+
+  useSignIn(params?.projectId);
   return (
     <Fragment>
       <Head>
