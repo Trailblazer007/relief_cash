@@ -20,6 +20,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useOnClickOutside, useWindowSize } from "usehooks-ts";
 import { useRouter } from "next/router";
 import { InviteMemberModel } from "./invite-member-model";
+import { CreateTaskModel } from "./create-task-model";
 
 type Props = {
   members: MemberType[];
@@ -43,6 +44,7 @@ const SidebarContent = (props: Props) => {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isTaskOpen, setIsTaskOpen] = useState(false);
 
   const router = useRouter();
 
@@ -190,6 +192,12 @@ const SidebarContent = (props: Props) => {
       <InviteMemberModel
         projectId={projectId}
         isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+      />
+
+      <CreateTaskModel
+        projectId={projectId}
+        isOpen={isTaskOpen}
         onClose={() => setIsOpen(false)}
       />
     </Fragment>

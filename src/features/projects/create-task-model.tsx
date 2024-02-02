@@ -34,6 +34,7 @@ type SchemaType = Yup.InferType<typeof Schema>;
 
 type Props = {
   isOpen: boolean;
+  projectId: string;
   onClose: () => void;
 };
 export const CreateTaskModel = (props: Props) => {

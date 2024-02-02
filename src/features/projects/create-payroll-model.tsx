@@ -42,10 +42,11 @@ type SchemaType = Yup.InferType<typeof Schema>;
 type Props = {
   isOpen: boolean;
   onClose: () => void;
+  onSave: (args: { email: string; salary: string }[]) => void;
   members: MemberType[];
 };
 export const CreatePayrollModel = (props: Props) => {
-  const { isOpen, onClose, members } = props;
+  const { isOpen, onClose, onSave, members } = props;
 
   const router = useRouter();
 
@@ -69,7 +70,10 @@ export const CreatePayrollModel = (props: Props) => {
     validateOnBlur: true,
     validateOnMount: true,
     onSubmit: async (values) => {
-      if (!sessionData) return;
+      onSave(values.members);
+
+      onClose();
+
       //   await createProject({ ...values, token: sessionData.user.accessToken })
       //     .then((results) => {
       //       toast.success(results.message);
