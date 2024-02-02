@@ -23,7 +23,7 @@ export default function App({
     <Fragment>
       <Head>
         <meta name="title" content={`Relief | ${process.env.BASE_URL}`} />
-        <link rel="icon" href="/logo.jpg" />
+        <link rel="icon" href="/logo.png" />
 
         <meta
           key="og:url"
@@ -39,8 +39,10 @@ export default function App({
         <meta
           key="og:image"
           property="og:image"
-          content={`${process.env.BASE_URL}/logo.jpg`}
+          content={`${process.env.BASE_URL}/logo.png`}
         />
+        <meta property="og:URL" content={process.env.BASE_URL} />
+        <meta property="og:type" content="website" />
       </Head>
       <SessionProvider session={session}>
         <AuthStateChanged>
