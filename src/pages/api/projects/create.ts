@@ -36,7 +36,9 @@ const handler: NextApiHandler<DataType> = async (
 
       const projectId = name.toLowerCase() + "-" + nanoid(5).toLowerCase();
 
-      const formattedMembers = await formatMembers(members);
+      const formattedMembers = await formatMembers(
+        (members as any[]).filter((member) => member.email !== user.email)
+      );
 
       const userName = user.lastName + " " + user.firstName;
 

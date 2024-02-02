@@ -49,9 +49,9 @@ export default function Invitation() {
       >
         <h1 className="text-3xl font-bold ">Invitations</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
-          {project?.invitations && project.invitations.length > 0 ? (
-            project?.invitations.map((member, index) => (
+        {project?.invitations && project.invitations.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
+            {project?.invitations.map((member, index) => (
               <div
                 key={index}
                 className="flex items-center justify-between gap-2 border-[1.5px] border-slate-100 p-2 rounded-md hover:bg-slate-100 hover:border-slate-200 transition-all duration-300 cursor-pointer"
@@ -102,16 +102,16 @@ export default function Invitation() {
                   </AlertDialogContent>
                 </AlertDialog>
               </div>
-            ))
-          ) : (
-            <section className="grid place-items-center h-[calc(100vh-100px)]">
-              <div className="text-center">
-                <Image src="/empty.svg" alt="" width={200} height={200} />
-                <p className="">No invitation yet</p>
-              </div>
-            </section>
-          )}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <section className="grid place-items-center h-[calc(100vh-100px)] w-full">
+            <div className="text-center">
+              <Image src="/empty.svg" alt="" width={200} height={200} />
+              <p className="">No invitation yet</p>
+            </div>
+          </section>
+        )}
       </ProjectLayout>
     </Fragment>
   );
