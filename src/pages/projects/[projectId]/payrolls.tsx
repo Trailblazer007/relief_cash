@@ -15,18 +15,25 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useLocalStorage } from "usehooks-ts";
 
 export default function Payrolls() {
-  const [items, setItems] = useState<
+  const params = useParams<{ projectId: string }>();
+
+  const [items, setItems] = useLocalStorage<
     {
       email: string;
       salary: string;
     }[]
-  >([]);
+  >(`payroll-${params?.projectId}`, []);
+  // const [items, setItems] = useState<
+  //   {
+  //     email: string;
+  //     salary: string;
+  //   }[]
+  // >([]);
 
   const [isOpen, setIsOpen] = useState(false);
-
-  const params = useParams<{ projectId: string }>();
 
   const { isLoading, project } = useFetchProject(params?.projectId);
 
@@ -51,7 +58,7 @@ export default function Payrolls() {
           </Button>
         </div>
 
-        {items.length > 0 ? (
+        {items?.length > 0 ? (
           <Table className="mt-10">
             <TableHeader>
               <TableRow>
