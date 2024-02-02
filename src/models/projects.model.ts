@@ -23,7 +23,6 @@ const memberSchema = new Schema<MemberType>({
   email: {
     type: String,
     required: true,
-    unique: true,
   },
   role: { type: String, enum: ["employee", "employer"], required: true },
   salary: { type: String },
