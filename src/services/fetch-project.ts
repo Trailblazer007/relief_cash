@@ -17,7 +17,5 @@ export async function fetchProject({ token, projectId }: Args) {
   const data = await res.json();
   if (!res.ok) throw new Error(formatErrorMessage(data.message));
 
-  console.log(data);
-
   return data;
 }

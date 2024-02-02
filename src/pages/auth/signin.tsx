@@ -52,7 +52,8 @@ export default function Signin() {
         ({ ok, error }: any) => {
           if (ok) {
             toast.success("Successfully logged in");
-            router.replace("/projects");
+            const callbackUrl = router.query.callbackUrl as string;
+            router.replace(callbackUrl ?? "/projects");
           } else {
             toast.error(error ?? "Uh oh! Something went wrong.");
           }

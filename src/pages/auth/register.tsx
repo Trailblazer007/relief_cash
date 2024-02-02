@@ -54,7 +54,7 @@ export default function Register() {
       await createAccount(values)
         .then((results) => {
           toast.success(results.message);
-          router.push(`/auth/signin`);
+          router.push(`/auth/signin?callbackUrl=${router.query.callbackUrl}`);
         })
         .catch((err) => {
           toast.error(err.message ?? "Uh oh! Something went wrong.");

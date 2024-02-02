@@ -2,8 +2,10 @@ import { Navbar } from "@/features/projects";
 import { fetchProject } from "@/services/fetch-project";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import React, { Fragment, useCallback, useEffect, useState } from "react";
+import { MoonLoader } from "react-spinners";
 
 export default function Project() {
   const params = useParams();
@@ -14,7 +16,7 @@ export default function Project() {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleFetch = useCallback(async () => {
-    if (!sessionData || !params.projectId) return;
+    if (!sessionData || !params?.projectId) return;
 
     setIsLoading(true);
 
@@ -43,7 +45,20 @@ export default function Project() {
       <main className="">
         <Navbar />
 
-        {params?.projectId}
+        {isLoading ? (
+          <div className="grid h-[calc(100vh-100px)] place-items-center">
+            <MoonLoader color="#07D46F" className="ml-2 text-white" />
+          </div>
+        ) : data ? (
+          <div></div>
+        ) : (
+          <div className="grid place-items-center h-[calc(100vh-100px)]">
+            <div className="text-center">
+              <Image src="/empty.svg" alt="" width={200} height={200} />
+              <p className="">Project not found yet</p>
+            </div>
+          </div>
+        )}
       </main>
     </Fragment>
   );

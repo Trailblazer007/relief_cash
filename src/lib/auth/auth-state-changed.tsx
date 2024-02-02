@@ -19,7 +19,8 @@ export const AuthStateChanged = ({ children }: PropsWithChildren) => {
     );
 
     if (status === "unauthenticated" && isProtectedRoute) {
-      router.replace(`/auth/signin`);
+      const callbackUrl = router.query.callbackUrl as string;
+      router.replace(`/auth/signin?callbackUrl=${callbackUrl}`);
     }
 
     if (status === "authenticated" && isUnauthenticatedRoutes) {

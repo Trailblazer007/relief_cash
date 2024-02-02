@@ -6,6 +6,8 @@ import { PropsWithChildren } from "react";
 type Props = {};
 export const AuthLayout = ({ children }: PropsWithChildren<Props>) => {
   const router = useRouter();
+
+  const callbackUrl = router.query.callbackUrl;
   return (
     <main className="flex h-screen relative lg:">
       <div className="w-full lg:w-[50%] 2xl:mx-auto h-full bg-white pt-10 flex flex-col items-center">
@@ -29,7 +31,11 @@ export const AuthLayout = ({ children }: PropsWithChildren<Props>) => {
           {tabs.map(({ href, name }, index) => (
             <div
               key={index}
-              onClick={() => router.push(href)}
+              onClick={() =>
+                router.push(
+                  callbackUrl ? `${href}?callbackUrl=${callbackUrl}` : href
+                )
+              }
               className="flex flex-col items-center hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
             >
               <p

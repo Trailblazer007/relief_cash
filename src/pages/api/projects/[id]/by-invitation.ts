@@ -14,9 +14,7 @@ const handler: NextApiHandler<DataType> = async (
     if (req.method === "GET") {
       await connectMongoDB();
 
-      const projectId = req.query;
-
-      console.log(projectId);
+      const projectId = req.query.id;
 
       const { sub } = getTokenPayload(req.headers, "x-access-token");
 
@@ -28,7 +26,8 @@ const handler: NextApiHandler<DataType> = async (
       if (!user) throw new Error("Invalid credentials");
 
       const project = await Project.findOne<ProjectType>({
-        members: { $elemMatch: { uid: sub } },
+        projectId,
+        $or: [{ invitations: { $elemMatch: { email: user.email } } }],
       });
 
       res.status(200).json(project);

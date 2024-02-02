@@ -51,7 +51,7 @@ const handler: NextApiHandler<DataType> = async (
             projectName: name,
             link:
               process.env.BASE_URL +
-              `/project/invite/${projectId}/${formattedMember.code}`,
+              `/projects/${projectId}/invite/${formattedMember.code}`,
           }),
         });
       }
